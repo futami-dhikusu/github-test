@@ -1,20 +1,32 @@
-name: Python Test CI
+# .github/workflows/ci.yml
+# GitHub Actions で Python のテストを自動実行する設定
 
+name: Python Test CI  # ワークフロー名
+
+# トリガー設定
 on:
-  push:
+  push:          # mainブランチにpushされた時
     branches: [ main ]
-  pull_request:
+  pull_request:  # mainブランチ宛のPR作成時
     branches: [ main ]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # GitHub が提供する Linux 環境で実行
+
     steps:
+      # 1. リポジトリをクローン
       - uses: actions/checkout@v3
+
+      # 2. Miniconda をセットアップ
       - name: Setup Miniconda
         uses: goanpeca/setup-miniconda@v2
         with:
-          python-version: '3.11'
-          auto-update-conda: true
+          python-version: '3.11'   # Pythonバージョン指定
+          auto-update-conda: true  # condaを最新化
+
+      # 3. 仮想環境を作成
       - run: conda env create -f environment.yml
+
+      # 4. pytest でテスト実行
       - run: conda activate myenv && pytest
