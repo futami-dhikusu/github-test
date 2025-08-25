@@ -1,0 +1,4 @@
+name: myenv
+channels:
+  - defaults
+prefix: C:\Users\a-futami\anaconda3\envs\myenv
