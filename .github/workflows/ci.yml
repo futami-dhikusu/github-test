@@ -29,5 +29,14 @@ jobs:
       - run: conda env create -f environment.yml
 
       # 4. pytest でテスト実行
-      - run: conda run -n myenv pytest
-      - run: conda run -n myenv flake8
+      - run: conda run -n myenv pytest -q | tee pytest.log
+      - run: conda run -n myenv flake8 | tee flake8.log
+
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-logs
+          path: |
+            pytest.log
+            flake8.log
+
