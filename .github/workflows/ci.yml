@@ -33,7 +33,7 @@ jobs:
       - run: conda run -n myenv flake8 | tee flake8.log
 
       - name: Upload logs as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-logs
           path: |
